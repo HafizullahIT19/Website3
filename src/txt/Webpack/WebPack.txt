@@ -1,0 +1,491 @@
+
+Om Node Package Manager (npm)
+
+Show version of package:
+    packageName -v
+
+Install all packages:
+    npm i
+
+Install package:
+    npm install packageName               (dependencies)
+    npm i packageName                     
+
+    npm install --save-dev packageName    (devDependencies)
+    npm i -D packageName                  
+
+    npm install -g packageName            (global)
+    npm i -g packageName                  
+
+    npm i -D packageName@4.43.0           (with version)
+
+
+Uninstall package:
+    npm uninstall packageName     (dependencies ro devDependencies)
+    npm un packageName
+
+    npm  un -g  packageName       (global)
+
+
+____________________________________________________________________________________________
+
+WebPack 5
+
+
+Install:
+    npm init -y                             (package.json)
+
+Install loaders:
+    npm i -D webpack webpack-cli            (WebPack)
+    npm i -D style-loader css-loader        (CSS)
+    npm i -D sass-loader node-sass          (SCSS)
+    npm i -D file-loader                    (Images and Fonts)
+    npm i -D babel-loader @babel/core       (Babel)
+    npm i -D @babel/preset-env              (Babel)
+
+Install Plugins:
+    npm i -D html-webpack-plugin                  (HtmlWebpackPlugin)
+    npm i -D mini-css-extract-plugin            (MiniCssExtractPlugin
+    npm i -D clean-webpack-plugin                   (CleanWebpackPlugin)
+
+Server:
+    npm i -D webpack-dev-server                     (WebPack Dev Server)
+
+ESLint:
+    npm i -D eslint                                 (ESLint)
+
+    Package.js:
+        "lint" : "eslint --init"                    (.eslintrc.json)
+
+
+Create:
+    src directory
+    webpack.config.js
+
+
+package.json:
+    "private": true,
+
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "watch": "webpack-dev-server --mode=development",
+    "lint" : "eslint ./src"
+
+    "sass": "node-sass -o src/css src/scss",
+    "sass-w": "node-sass -o src/css src/scss -w"
+
+
+
+____________________________________________________________________________________________
+
+WebPack 4
+
+
+Install:
+    npm init -y                                     (package.json)
+    npm i -D webpack@4.x  webpack-cli@3.x            (WebPack)
+    npm i -D style-loader@2.x css-loader@5.x               (CSS)
+    npm i -D sass-loader@10.x node-sass@4.x                  (SCSS)
+    npm i -D file-loader                            (Images and Fonts)
+    npm i -D babel-loader @babel/core               (Babel)
+    npm i -D @babel/preset-env                      (Babel)
+
+    npm i -D html-webpack-plugin@4                  (HtmlWebpackPlugin)
+    npm i -D mini-css-extract-plugin@1.x            (MiniCssExtractPlugin
+    npm i -D clean-webpack-plugin                   (CleanWebpackPlugin)
+
+    npm i -D webpack-dev-server                     (WebPack Dev Server)
+
+    npm i -D eslint                                 (ESLint)
+    Package.js:
+        "lint" : "eslint --init"                    (.eslintrc.json)
+
+
+Create:
+    src directory
+    webpack.config.js
+    
+
+package.json:
+    "private": true,
+
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "watch": "webpack-dev-server --mode=development",
+    "lint" : "eslint ./src"
+
+    "sass": "node-sass -o src/css src/scss",
+    "sass-w": "node-sass -o src/css src/scss -w"
+
+
+New HTML Page:
+
+    1- HTML file: 
+            <title> <%= htmlWebpackPlugin.options.title %> </title>
+
+    2- JS for HTML
+
+    3- SASS or CSS for HTML 
+
+
+    4- webpack.config.js: 
+            entry: {
+                nameJS: './src/nameJs',
+            },
+
+            new HtmlWebpackPlugin({
+                title: 'Title page',
+                template: 'namePage.html',    //name template
+                filename: 'namePage.html',    //name html file
+                chunks: ['name', 'name2']  // all js,css and scss = name, name2
+            }),
+
+
+
+
+
+____________________________________________________________________________________________
+
+
+
+1- package.json
+    npm init -y   
+
+2- Initial webpack:
+    npm i -D webpack webpack-cli
+
+3- Create src directory
+
+4- CSS loaders:
+    npm i -D style-loader css-loader
+
+5- SASS loaders:
+    npm i -D sass-loader node-sass
+
+6- Images loader:   
+    npm i -D file-loader
+
+7- Fonts loader:
+    npm i -D file-loader
+
+8- babel loaders:
+    npm i -D babel-loader @babel/core
+    npm i -D @babel/preset-env 
+
+___________________________________
+9- Use Loaders in webpack.config.js:
+
+    const path = require('path');
+
+    module.exports = {
+        entry: {
+            bundle: './src/index.js',
+        },
+        output: {
+            filename: '[name].js',
+            path: path.join(__dirname, 'dist'),
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.css$/i,
+                    use: ['style-loader', 'css-loader'],
+                },
+                {
+                    test: /\.s[ac]ss$/i, // /\.(scss|sass)$/i
+                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                },
+                {
+                    test: /\.(png|jpe?g|gif)$/i,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                publicPath: 'dist/images',
+                                outputPath: 'images',
+                                name: '[name].[ext]',
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.(eot|ttf|woff|woff2|)$/i,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                publicPath: 'dist/fonts/',
+                                outputPath: 'fonts',
+                                name: '[name].[ext]',
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.m?js$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env'],
+                        },
+                    },
+                },
+            ],
+        },
+        mode: 'development',
+    };
+
+
+
+
+
+10- HtmlWebpackPlugin:
+    npm i -D html-webpack-plugin   (webpack 5)
+    npm i -D html-webpack-plugin@4   (webpack 4)
+
+
+    in index.html: (Title)
+        <title> <%= htmlWebpackPlugin.options.title %> </title>
+
+    webpack.config.js:
+        const HtmlWebpackPlugin  = require('html-webpack-plugin');
+        
+        //dist/images => images
+        //dist/fonts => fonts
+
+
+11- MiniCssExtractPlugin:
+    npm i -D mini-css-extract-plugin        (webpack 5)
+    npm i -D mini-css-extract-plugin@1.x   (webpack 4)
+
+
+    webpack.config.js:
+        const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+        
+        Css and sass:
+            style-loader => MiniCssExtractPlugin.loader
+
+        new MiniCssExtractPlugin(),
+
+
+12- Contenthash JS and CSS:
+    filename: '[name].[contenthash].js'
+    filename: '[name].[contenthash].css'
+
+
+
+13- CleanWebpackPlugin:
+    npm i -D clean-webpack-plugin 
+
+    webpack.config.js:
+        const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+        new CleanWebpackPlugin(),
+
+14- Mode :
+    Development mode: 
+        1- filename: '[name].js',
+
+        2- devServer
+
+        3- CSS and SCSS loader:
+            'style-loader'
+
+
+    Production mode:
+        1- filename: '[name].[contenthash].js',
+
+        2- CSS and SCSS loader:
+            MiniCssExtractPlugin.loader 
+
+        3- babel loader:
+            loader: "babel-loader",
+
+        4- CSS plugin and Hash:
+            new MiniCssExtractPlugin({
+                filename: '[name].[contenthash].css'
+            }),
+
+
+15- webpack dev server:  
+    npm i -D webpack-dev-server     
+
+    webpack.config.js:  
+        devServer:{
+            contentBase: path.join(__dirname, 'dist'),
+            index: 'index.html',
+            port: 9000,
+        },
+
+
+
+16- More pages:
+    1- Create a html (new page) 
+            <title> <%= htmlWebpackPlugin.options.title %> </title>
+
+    2- Create a js file in src
+
+    3- Create a Sass or css file in src/sass or src/css, then import to js file
+
+
+    4- Then use in webpack.config.js: 
+            entry: {
+                nameJS: './src/nameJs',
+            },
+
+            new HtmlWebpackPlugin({
+                title: 'Title page',
+                template: 'namePage.html',    //name template
+                filename: 'namePage.html',    //name html file
+                chunks: ['name', 'name2']  // all js,css and scss = name, name2
+            }),
+
+
+17- Split Chunks Plugin:  (Video 24)
+    We don't need to install
+
+    webpack.config.js:
+        optimization: {
+            splitChunks: {
+                chunks: 'all'  //look at to all js files and create vendors.js 
+            }
+        },
+
+
+18- node-notifier
+
+
+
+19- ProgressPlugin:     (Video 26)
+    We don't need to install
+
+    Use webpack.config.js:
+        const { ProgressPlugin } = require('webpack'); 
+
+        new ProgressPlugin(),    
+
+        config.stats = 'normal'         (developmentMode)
+        config.stats = 'errors-only';   (productionMode)
+
+
+20- ESLint and eslint-loader        (Video 27)
+
+    1- Extension or VSCode: ESLint 
+    2- npm i -D eslint 
+    3- Package.js:
+        "lint" : "eslint --init"  (for install .eslintrc file in project) 
+
+    4- Use ESLint:
+        Package.js:
+            "lint" : "eslint ./src"
+
+
+
+21- Bootstrap v4.6.x:
+
+    Install:
+        npm install -D bootstrap@4.6.x
+
+    Use in sass:
+        Create a bootstrap.scss:
+            @import "~bootstrap/scss/bootstrap";
+
+        Then import to js file:
+            import './scss/bootstrap.scss';
+
+
+___________________________________
+20- Use Loaders in webpack.config.js:
+
+    const HtmlWebpackPlugin  = require('html-webpack-plugin');
+    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+    const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+    const path = require('path');
+
+    module.exports = {
+        entry: {
+            bundle : './src/index',
+        },
+        output: {
+            filename: '[name].[contenthash].js',
+            path: path.join(__dirname, 'dist'),
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.css$/i,
+                    use: [MiniCssExtractPlugin.loader, "css-loader"], //style-loader => MiniCssExtractPlugin.loader
+                },
+                {
+                    test: /\.s[ac]ss$/i,  // /\.(scss|sass)$/i  
+                    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader", "sass-loader"],//style-loader => MiniCssExtractPlugin.loader
+                },
+                {
+                    test: /\.(png|jpe?g|gif)$/i,   
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                publicPath: 'images',  //dist/images => images
+                                outputPath: 'images',
+                                name: '[name].[ext]'
+                            }
+                        },
+                    ],
+                },
+                {
+                    test: /\.(eot|ttf|woff|woff2|)$/i,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                publicPath: 'fonts',    //dist/fonts => fonts
+                                outputPath: 'fonts',
+                                name: '[name].[ext]',
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.m?js$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: "babel-loader",
+                        options: {
+                        presets: ['@babel/preset-env']
+                        }
+                    }
+                }
+            ],
+        },
+        plugins: [
+            new HtmlWebpackPlugin({
+                title:'Hafiz is Coding | Home page',
+                template:'index.html'
+            }),
+            new MiniCssExtractPlugin({
+                filename: '[name].[contenthash].css',
+            }),
+            new CleanWebpackPlugin(),
+        ],
+        mode: 'development',
+    };
+
+
+
+
+
+package.json:
+
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "watch": "webpack-dev-server --mode=development",
+    "lint" : "eslint ./src"
+
+    "sass": "node-sass -o src/css src/scss",
+    "sass-w": "node-sass -o src/css src/scss -w"
+
+
+
+--------------------------------------------------------------------------------------------

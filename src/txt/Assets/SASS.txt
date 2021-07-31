@@ -1,0 +1,64 @@
+SASS SUMMARY
+
+Sass Folder:
+    _base.scss              (پایه) : styles like mixin Variable and ...
+    _components.scss        (اجزاء) : style like we can use again to other files.
+    _layout.scss            (چیدمان) : main styles like we user in index.html and we cannot use again
+ 
+    main.scss              (main style)
+        @import "base";
+        @import "components";
+        @import "layouts/layout";
+
+
+
+-----------------------------------
+1- Sass with NodeJs:
+
+    npm i -D node-sass
+    npm i -g node-sass 
+
+    node-sass -o css scss
+    node-sass Output in FolderCss   AllScssFiles in The FolderScss
+
+    "sass":"node-sass -o css scss",
+    "sass-w":"node-sass -o css scss -w"
+
+
+-----------------------------------
+2- Sass with VSCode:
+
+Live Sass Compiler Setting
+    1- live sass Compile
+
+Settings.json:
+
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/css"
+        }
+    ],
+
+    
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "compressed",
+            "extensionName": ".min.css",
+            "savePath": "/css"
+        }
+    ],
+
+
+-------------------------------------------------------------------------------
+1- Variable 
+
+Create Variable:
+    $nameVariable: valueVariable;   ( $color-primary: orange; ) 
+    
+Use Variable:
+    background-color: $nameVariable;   ( background-color: $color-primary; )      
+    
+
+-------------------------------------------------------------------------------
