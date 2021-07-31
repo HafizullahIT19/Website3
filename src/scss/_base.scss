@@ -1,32 +1,32 @@
-
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 // Colors Variables
 $color-dark: #262626;
 $color-black: #0000;
 $color-primary: #d3ab55;
-$color-secondary : #bbb;
-$Color-white : #ffff;
+$color-secondary: #bbb;
+$color-white: #ffff;
+$color-hover: #ff4a52;
 
 
-// Fonts Variables 
-$font-dancingScript : 'Dancing Script', cursive;
-$font-josefinSans : 'Josefin Sans', sans-serif;
-$font-nunito : 'Nunito', sans-serif;
-$font-sahel : Sahel, Tahoma;
+// Fonts Variables
+$font-arial: Arial, Helvetica, sans-serif;
+$font-sahel: Sahel, Tahoma;
 
+// Fonts Size
+$font-size-14: 14px;
 
 // Import Fonts
 @font-face {
     font-family: Sahel;
     src: url('../fonts/Sahel.eot');
     src: url('../fonts/Sahel.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Sahel.woff2') format('woff2'), url('../fonts/Sahel.woff') format('woff'),
+        url('../fonts/Sahel.woff2') format('woff2'),
+        url('../fonts/Sahel.woff') format('woff'),
         url('../fonts/Sahel.ttf') format('truetype');
     font-weight: normal;
 }
-
 
 // @mixin
 @mixin flexLayout {
@@ -47,21 +47,30 @@ $font-sahel : Sahel, Tahoma;
     transform: translate(-50%, -50%);
 }
 
-@mixin fullSpace{
+@mixin fullSpace {
     width: 100%;
     height: 100%;
 }
 
-
 // All Tags
-*{
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    // box-sizing: border-box;
 }
 
 // Body
-body{
-    background-color: $color-primary;
+body {
+    font-family: $font-arial;
+    font-size: $font-size-14;
 }
 
+// link
+a{
+    text-decoration: none;
+    transition: color .2s;
+
+    &:hover{
+        color: $color-hover;
+    }
+}
