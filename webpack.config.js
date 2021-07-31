@@ -60,7 +60,7 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Hafiz is Coding | Home page',
+            title: 'Website 3',
             template: 'index.html',     //name template
             filename: 'index.html',     //name html file
             chunks: ['main']          //all js,css and scss are name bundle
