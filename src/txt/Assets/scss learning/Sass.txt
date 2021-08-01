@@ -1,0 +1,480 @@
+
+
+Title: Sass
+
+Site:  https://toplearn.com/c/AEO
+
+Videos: 12
+
+Time: 5:12:00
+
+Sass: https://sass-lang.com/
+
+
+--------------------------------------------------------------------------------------------
+Summary
+-----------------------------------
+Video 1
+
+
+-----------------------------------
+
+
+
+
+--------------------------------------------------------------------------------------------
+Video 1
+
+
+--------------------------------------------------------------------------------------------
+Video 2
+sass(old version)  
+scss(new version)
+
+1- Sass with node js:
+2- Sass with vs Code:
+
+
+-----------------------------------
+1- Sass with node js:
+   npm node-sass:
+    
+    npm init -y
+
+    npm i node-sass --save-dev
+    npm i -g node-sass 
+
+    node-sass -o css scss/main.scss
+    node-sass -o        css        scss/main.scss
+    node-sass output in FolderCss   main.scss in folderScss
+
+    node-sass -o css scss
+    node-sass output in FolderCss   AllScssFiles in The folderScss
+
+    node-sass -o css scss -w
+                           watch
+
+package.json:
+  "scripts": {
+    "scss":"node-sass -o css scss",
+    "scss-w":"node-sass -o css scss -w"
+   },
+
+-----------------------------------
+2- Sass with VSCode:
+
+VSCode Extensions:
+    1- Sass
+    2-Beautify css/sass/scss/less
+    3- Sass Lint (deprecated)
+
+    4- Live Sass Compiler   (watch sass button VSCode)
+
+Live Sass Compiler Setting
+    1- live sass Compile
+    2- Edit in Settings.json
+    
+Settings.json:
+
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/css"
+        }
+    ],
+
+    
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "compressed",
+            "extensionName": ".min.css",
+            "savePath": "/css"
+        }
+    ],
+
+
+  
+--------------------------------------------------------------------------------------------
+Video 3
+Variable in sass
+
+1- Create Variable:
+        $nameVariable: valueVariable;            ==>Example: $color-primary:orange;
+
+2- Use Variable:
+        background-color: $nameVariable;         ==>Example: background-color: $color-primary;
+
+
+3- Variable are Global or Local
+
+main.scss:
+    // Variable 
+    $color-primary:orange;   //global
+    $font-size-lg:40px;     //global
+
+    body{
+        direction: rtl;
+    }
+
+    .nav{
+        background-color: $color-primary;
+    }
+
+    .banner h1{
+        $color-test:red;            // is local.  {but if $color-test takes a !global, this vill be global. Example: $color-test:red !global;}
+        color: $color-test;
+        font-size: $font-size-lg;
+        text-align: center;
+    }
+
+--------------------------------------------------------------------------------------------
+Video 4
+Nesting and Mixin
+
+1- Nesting
+    .nav{
+        ul li{}   
+            
+        a{ 
+            &:hover{} //a:hover
+        }
+    }
+
+2- Mixin  (is a method)
+    Create Mixin:
+        1:
+        @mixin nameMixin {
+            //style
+        }
+
+        2: a parameter 
+        @mixin nameMixin ($parameter) {
+            //style
+            font-size: $parameter;
+        }
+
+        3: a parameter with parameterValue or Variable
+        @mixin nameMixin ($parameter:parameterValue or Variable) {                  
+            //style
+            font-size: $parameter;
+        }
+
+        4: more parameters
+        @mixin nameMixin($params...) {
+            style: $params;
+        }
+
+    Use Mixin:
+        @include nameMixin(parameter);
+
+
+
+
+1- Nesting Example:
+
+In main.scss:
+.nav{
+    background-color: $color-primary;
+
+    ul li{                                      //.nav ul li 
+        list-style: none;
+    }
+
+    a{                                          //.nav a
+        text-decoration: none;
+        color: $color-secondary;
+        font-size: $font-size-sm;
+
+        &:hover{                                //a:hover
+            color: $color-tertiary;
+            font-size: $font-size-md;
+        }
+    }
+}
+
+
+
+2- mixin Example:
+
+In main.scss:
+
+// Variable 
+$color-primary:orange;
+$color-secondary:green;
+$color-tertiary:royalblue;
+
+$font-size-lg:40px;
+$font-size-md:30px;
+$font-size-sm:20px;
+
+//Mixin
+@mixin headingStyle ($fontSize:80px) {
+    color: $color-secondary;
+    text-align: center;
+    font-size: $fontSize;
+}
+
+@mixin transition($params...) {
+    transition: $params;
+    -webkit-transition: $params;
+    -moz-transition: $params;
+    -ms-transition: $params;
+    -o-transition: $params;
+}
+
+//@include 
+..banner h1{
+    // @include headingStyle(50px);
+    @include headingStyle();
+}
+
+.footer h3{
+    // @include headingStyle(50px);
+    @include headingStyle($font-size-md);
+
+    
+    &:hover{
+        color: $color-tertiary;
+        background-color: $color-primary;
+        @include transition(color 3s, background-color 6s);
+    }
+}
+
+
+
+--------------------------------------------------------------------------------------------
+Video 5
+Extend, Function, Sass methods and Placeholder selector 
+
+
+1- Extend:
+    @extend nameTag or ClassName;
+
+    Example:
+        .footer h3{
+            @extend h1;             // H3 in footer takes allting are into take H1 
+        }
+
+
+2-Function:
+    @function nameFunction($parameter:parameterValue){
+        @return $parameter ....;
+    }
+
+    Use:
+        nameFunction();              // parameterValue is default
+        nameFunction(parameter);
+
+
+    Example:
+        @function doubleFontSize($font-size){
+            @return $font-size * 2;
+        }
+
+        //Use Function
+        .banner p{
+            font-size: doubleFontSize($font-size-sm);
+            // font-size: doubleFontSize(10px);
+        }
+
+3- Sass have mony methods and vi can use their.
+    Sass method:
+        1- lighten():
+            lighten($color: #000000, $amount: 0)
+
+        2- darken():
+            darken($color: #000000, $amount: 0)
+
+        3- transparentize():
+            transparentize($color: #000000, $amount: 0)
+
+        3- mix():
+            mix($color: #000000, $color: #000000, $weight: 0.5);
+
+
+4- Placeholder selector:   //OBS  this doesn't Show in Export Css
+    %name{
+
+    }
+
+    Use:
+      @extend %name;
+
+      
+
+--------------------------------------------------------------------------------------------
+Video 6
+
+Partial Files, Data Types in Sass, Interpolation, For and Each Loops, If, Else if and Else
+
+
+1- Partial Files (is a module):
+    Create a partial:
+        _namePartial.scss 
+        Example: _test.scss 
+
+    Use a partial:
+        @import "namePartial";
+        Example: @import "test";
+
+
+2- Data Types in Sass:
+    1- numbers
+    2- string
+    3- colors
+    4- list
+
+    5- map:
+        Create map:
+            $nameMap:(
+                nameKey: valuo
+            )
+        use map:
+            map-get($map: nameMap , $key: nameKey );
+
+    6- boolean 
+    7- null  //has no value
+
+
+3- Interpolation:
+    Create Interpolation:
+        $interpolationName : "interpolationValuo"
+        Example:  $b : "border";
+
+    Use Interpolation:
+        #{$interpolationName}
+
+        Example:
+            // box-sizing: border-box;
+            box-sizing: #{$b}-box;
+
+
+
+4- Loops:
+    1- For Loop:
+        1- @for $var from start to end {}   
+            Example: @for $i from 1 to 5 {}            // 1 2 3 4 
+
+        2- @for $var from start through end {}
+            Example: @for $i from 1 through 5 {}        // 1 2 3 4 5
+    
+
+    2- Each Loop:
+        @each $var in list {}
+
+        Example:
+            // list for Each Loop
+            $eachColors : red green blue gray yellow;
+
+            // Each Loop
+            @each $color in $eachColors {
+                .paragraph-#{$color}{
+                    background-color: $color;
+                }
+            }
+    
+
+5- if and Else:
+    @if(){}
+    @else if[(){}]
+    @else{}
+
+
+    Example:
+        $eachColors : red green blue gray yellow;
+
+        @each $color in $eachColors {
+            .paragraph-#{$color}{
+                @if ($color == green) {           //if
+                    background-color: pink;
+                }@else if($color == yellow){       //else if
+                    background-color: orange;
+                }@else{                            //else
+                    background-color: $color;
+                }
+            }
+        }
+
+
+--------------------------------------------------------------------------------------------
+Video 7
+Project  part 1
+
+1- Sass Folder:
+    main.scss               main style
+    _base.scss              (پایه) : styles like mixin Variable and ...
+    _components.scss        (اجزاء) : style like we can use again to other files.
+    _layout.scss            (چیدمان) : main styles like we user in index.html and we cann't use again
+ 
+
+2- &
+
+.header {
+    .brand{}
+
+
+    // .header-banner{}
+    &-banner{}
+}
+--------------------------------------------------------------------------------------------
+Video 8
+
+Project  part 2
+
+import a font from folder fonsts:
+    @font-face{
+        font-family: Sahel;
+        src: url("../fonts/Sahel-Bold.eot");
+        src: url("../fonts/Sahel-Bold.ttf") format("ttf"), url("../fonts/Sahel-Bold.woff") format("woff");
+        font-weight: normal;
+    }
+
+
+--------------------------------------------------------------------------------------------
+Video 9
+
+Project  part 3 (gallery)
+
+&:hover .card-overlay{
+    left: 0;
+}
+
+--------------------------------------------------------------------------------------------
+Video 10
+
+Project  part 4 (footer)
+
+
+--------------------------------------------------------------------------------------------
+Video 11
+
+Project  part 5 (navbar and hamburger menu):
+
+1- letter-spacing: 
+    letter-spacing: 4px;
+
+2- cursor:
+    cursor: pointer;
+
+3- :checked and ~ :
+    .checkbox:checked ~ .navbar-navigation .navbar-navigation-left{
+        left: 0;
+    }
+
+4- transition and cubic-bezier() function:
+    transition: right .8s cubic-bezier(1,0,0,1);
+
+5- transform:;
+    transform: rotateZ(-40deg);
+
+6- hidden:
+    <input type="checkbox" id="check" class="checkbox" hidden>
+
+
+--------------------------------------------------------------------------------------------
+Video 12  End of course
+
+Project  part 6 (Responsive)
+
+--------------------------------------------------------------------------------------------
