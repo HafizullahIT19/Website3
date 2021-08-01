@@ -1,5 +1,5 @@
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';
 
 // Colors Variables
 $color-dark: #262626;
@@ -7,7 +7,7 @@ $color-black: #0000;
 $color-primary: #d3ab55;
 $color-secondary: #bbb;
 $color-white: #ffff;
-$color-hover: #ff4a52;
+$color-rosa: #ff4a52; 
 
 
 // Fonts Variables
@@ -15,7 +15,8 @@ $font-arial: Arial, Helvetica, sans-serif;
 $font-sahel: Sahel, Tahoma;
 
 // Fonts Size
-$font-size-14: 14px;
+$font-14: 14px !important;
+$font-15: 15px !important;
 
 // Import Fonts
 @font-face {
@@ -29,6 +30,33 @@ $font-size-14: 14px;
 }
 
 // @mixin
+
+@mixin hover{
+    transition: color .2s;
+
+    &:hover{
+        color: $color-rosa;
+    }
+}
+
+@mixin d-flex{
+    display: flex !important;
+}
+
+
+@mixin w-100 {
+    width: 100%;
+}
+
+@mixin w-50 {
+    width: 50%;
+}
+
+@mixin row {
+    width: 100%;
+    display: flex;
+}
+
 @mixin flexLayout {
     display: flex;
     justify-content: center;
@@ -62,15 +90,7 @@ $font-size-14: 14px;
 // Body
 body {
     font-family: $font-arial;
-    font-size: $font-size-14;
+    font-size: $font-14;
 }
 
-// link
-a{
-    text-decoration: none;
-    transition: color .2s;
 
-    &:hover{
-        color: $color-hover;
-    }
-}

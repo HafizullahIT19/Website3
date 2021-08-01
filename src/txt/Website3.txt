@@ -34,6 +34,12 @@ transition: color .2s;
 --------------------------------------------------------------------------------------------
 Video 52
 
+Header part-1 
+
+ 
+media query bootstrap (mobile first):
+    https://getbootstrap.com/docs/4.0/layout/overview/
+
 
 --------------------------------------------------------------------------------------------
 Video 53
