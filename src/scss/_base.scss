@@ -57,6 +57,12 @@ $font-15: 15px !important;
     display: flex;
 }
 
+@mixin perfectCentering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @mixin flexLayout {
     display: flex;
     justify-content: center;
