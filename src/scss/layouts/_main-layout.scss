@@ -3,6 +3,7 @@ header {
     background-color: $color-white;
     justify-content: space-around;
     padding: 25px 0;
+    position: relative;
 
     nav {
         ul {
@@ -14,7 +15,18 @@ header {
             display: none;
             list-style: none;
             cursor: pointer;
-            font-size: $font-15;
+            font-size: 1.3em;
+            margin-right: 35px;
+            margin-top: 13px;
+        }
+    }
+
+    .search-icon{
+        @include perfectCentering;
+        background-color: $color-rosa;
+
+        a{
+            color: $color-white;
         }
     }
 }
